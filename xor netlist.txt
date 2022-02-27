@@ -1,0 +1,73 @@
+*  Generated for: PrimeSim
+*  Design library name: XOR_lib
+*  Design cell name: xor_TB
+*  Design view name: schematic
+.lib 'saed32nm.lib' TT
+
+*Custom Compiler Version S-2021.09
+*Sun Feb 27 09:06:07 2022
+
+.global gnd!
+********************************************************************************
+* Library          : XOR_lib
+* Cell             : xor
+* View             : schematic
+* View Search List : hspice hspiceD schematic spice veriloga
+* View Stop List   : hspice hspiceD
+********************************************************************************
+.subckt xor a b vdd vss x
+xm7 x net58 net65 vdd p105 w=0.1u l=0.03u nf=1 m=1
+xm6 x net62 net65 vdd p105 w=0.1u l=0.03u nf=1 m=1
+xm5 net65 b vdd vdd p105 w=0.1u l=0.03u nf=1 m=1
+xm4 net65 a vdd vdd p105 w=0.1u l=0.03u nf=1 m=1
+xm3 net58 b vdd vdd p105 w=0.1u l=0.03u nf=1 m=1
+xm2 net62 a vdd vdd p105 w=0.1u l=0.03u nf=1 m=1
+xm14 net76 net58 vss vss n105 w=0.1u l=0.03u nf=1 m=1
+xm12 x net62 net76 vss n105 w=0.1u l=0.03u nf=1 m=1
+xm11 net83 b vss vss n105 w=0.1u l=0.03u nf=1 m=1
+xm10 x a net83 vss n105 w=0.1u l=0.03u nf=1 m=1
+xm9 net58 b vss vss n105 w=0.1u l=0.03u nf=1 m=1
+xm8 net62 a vss vss n105 w=0.1u l=0.03u nf=1 m=1
+.ends xor
+
+********************************************************************************
+* Library          : XOR_lib
+* Cell             : xor_TB
+* View             : schematic
+* View Search List : hspice hspiceD schematic spice veriloga
+* View Stop List   : hspice hspiceD
+********************************************************************************
+xi0 in_a in_b net15 gnd! out_x xor
+v1 net15 gnd! dc='1.05V'
+v11 in_a gnd! dc=0 pulse ( 0 1.05 0 0.1u 0.1u 5u 10u )
+v12 in_b gnd! dc=0 pulse ( 0 1.05 1u 0.1u 0.1u 5u 10u )
+c10 out_x gnd! c=1p
+
+
+
+
+
+
+
+
+.tran '1u' '20u' name=tran
+
+.option primesim_remove_probe_prefix = 0
+.probe v(*) i(*) level=1
+.probe tran v(in_a) v(in_b) v(out_x)
+
+.temp 25
+
+
+
+.option primesim_output=wdf
+
+
+.option parhier = LOCAL
+
+
+
+
+
+
+.end
